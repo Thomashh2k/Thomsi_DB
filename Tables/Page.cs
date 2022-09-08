@@ -20,7 +20,7 @@ namespace Headless.DB.Tables
 
         [ForeignKey("FK_Page_Lang")]
         public Guid? LangId { get; set; }
-        public Lang Lang { get; set; }
+        public Lang? Lang { get; set; }
 
     }
 }
