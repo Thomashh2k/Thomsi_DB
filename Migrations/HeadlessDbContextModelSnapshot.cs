@@ -119,7 +119,7 @@ namespace Headless.DB.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("LangId")
+                    b.Property<Guid>("LangId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Route")
@@ -337,7 +337,9 @@ namespace Headless.DB.Migrations
                 {
                     b.HasOne("Headless.DB.Tables.Lang", "Lang")
                         .WithMany()
-                        .HasForeignKey("LangId");
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lang");
                 });

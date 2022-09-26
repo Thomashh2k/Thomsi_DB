@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Headless.DB.Tables
 {
-    public class Lang
+    public class Lang : IEquatable<Lang>
     {
         [Key]
         public Guid Id { get; set; }
@@ -15,5 +15,12 @@ namespace Headless.DB.Tables
 
         public string LanguageIdentifier { get; set; }
 
+        public bool Equals(Lang? other)
+        {
+            if(this.Id != other.Id || this.LanguageName != other.LanguageName || this.LanguageIdentifier != other.LanguageIdentifier)
+                return false;
+            else
+                return true;
+        }
     }
 }

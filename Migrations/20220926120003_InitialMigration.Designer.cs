@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Headless.DB.Migrations
 {
     [DbContext(typeof(HeadlessDbContext))]
-    [Migration("20220907145010_Added Route in Page")]
-    partial class AddedRouteinPage
+    [Migration("20220926120003_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,7 +121,7 @@ namespace Headless.DB.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("LangId")
+                    b.Property<Guid>("LangId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Route")
@@ -339,7 +339,9 @@ namespace Headless.DB.Migrations
                 {
                     b.HasOne("Headless.DB.Tables.Lang", "Lang")
                         .WithMany()
-                        .HasForeignKey("LangId");
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lang");
                 });

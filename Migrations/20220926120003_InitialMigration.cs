@@ -216,8 +216,9 @@ namespace Headless.DB.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
+                    Route = table.Column<string>(type: "text", nullable: false),
                     Body = table.Column<string>(type: "text", nullable: false),
-                    LangId = table.Column<Guid>(type: "uuid", nullable: true)
+                    LangId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,7 +227,8 @@ namespace Headless.DB.Migrations
                         name: "FK_Pages_Languages_LangId",
                         column: x => x.LangId,
                         principalTable: "Languages",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
