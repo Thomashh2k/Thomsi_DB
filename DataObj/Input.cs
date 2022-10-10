@@ -10,7 +10,7 @@ namespace Headless.DB.DataObj
     public class Input
     {
         public string InputName { get; set; }
-        public long InputLength { get; set; }
+        public long? InputLength { get; set; }
         public bool NotNullable { get; set; }
         public InputType InputType { get; set; }
 
@@ -40,6 +40,8 @@ namespace Headless.DB.DataObj
 
             throw new Exception("Input Type couldnt be converted");
         }
+
+
         
         public static Input DeserializeInput(string serializedInput)
         {

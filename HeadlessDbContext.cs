@@ -23,6 +23,9 @@ namespace Headless.DB
         }
         public virtual DbSet<Lang> Languages { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<ActualPage> ActualPage { get; set; }
+        public virtual DbSet<Author> Author { get; set; }
+        public virtual DbSet<AuthorRole> AuthorRole { get; set; }
         public virtual DbSet<CustomForm> CustomForms { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Image> Images { get; set; }

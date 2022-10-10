@@ -3,6 +3,7 @@ using System;
 using Headless.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Headless.DB.Migrations
 {
     [DbContext(typeof(HeadlessDbContext))]
-    partial class HeadlessDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221010153318_UserRole Update")]
+    partial class UserRoleUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -3,6 +3,7 @@ using System;
 using Headless.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Headless.DB.Migrations
 {
     [DbContext(typeof(HeadlessDbContext))]
-    partial class HeadlessDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221010151726_User Update")]
+    partial class UserUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,10 +173,6 @@ namespace Headless.DB.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -190,8 +188,6 @@ namespace Headless.DB.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -391,28 +387,6 @@ namespace Headless.DB.Migrations
                         .HasColumnType("text");
 
                     b.HasDiscriminator().HasValue("Author");
-                });
-
-            modelBuilder.Entity("Headless.DB.Tables.AuthorRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.Property<int>("AuthorAccess")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AuthorRolesAccess")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CustomFormAccess")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("LangAccess")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PageAccess")
-                        .HasColumnType("integer");
-
-                    b.HasDiscriminator().HasValue("AuthorRole");
                 });
 
             modelBuilder.Entity("Headless.DB.Tables.ActualPage", b =>
