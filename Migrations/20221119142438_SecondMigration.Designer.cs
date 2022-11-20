@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Headless.DB.Migrations
 {
     [DbContext(typeof(HeadlessDbContext))]
-    [Migration("20221010153318_UserRole Update")]
-    partial class UserRoleUpdate
+    [Migration("20221119142438_SecondMigration")]
+    partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,13 +142,6 @@ namespace Headless.DB.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("LangId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Route")
                         .IsRequired()
                         .HasColumnType("text");
@@ -158,8 +151,6 @@ namespace Headless.DB.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LangId");
 
                     b.ToTable("Pages");
                 });
@@ -434,17 +425,6 @@ namespace Headless.DB.Migrations
                     b.Navigation("Lang");
 
                     b.Navigation("Page");
-                });
-
-            modelBuilder.Entity("Headless.DB.Tables.Page", b =>
-                {
-                    b.HasOne("Headless.DB.Tables.Lang", "Lang")
-                        .WithMany()
-                        .HasForeignKey("LangId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lang");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

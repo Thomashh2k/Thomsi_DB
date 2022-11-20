@@ -15,6 +15,12 @@ namespace Headless.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    Discriminator = table.Column<string>(type: "text", nullable: false),
+                    LangAccess = table.Column<int>(type: "integer", nullable: true),
+                    PageAccess = table.Column<int>(type: "integer", nullable: true),
+                    CustomFormAccess = table.Column<int>(type: "integer", nullable: true),
+                    AuthorAccess = table.Column<int>(type: "integer", nullable: true),
+                    AuthorRolesAccess = table.Column<int>(type: "integer", nullable: true),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -29,6 +35,11 @@ namespace Headless.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    Discriminator = table.Column<string>(type: "text", nullable: false),
+                    ProfileName = table.Column<string>(type: "text", nullable: true),
+                    Avatar = table.Column<string>(type: "text", nullable: true),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -231,6 +242,42 @@ namespace Headless.DB.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ActualPage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    LangId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PageID = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActualPage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActualPage_Languages_LangId",
+                        column: x => x.LangId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ActualPage_Pages_PageID",
+                        column: x => x.PageID,
+                        principalTable: "Pages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActualPage_LangId",
+                table: "ActualPage",
+                column: "LangId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActualPage_PageID",
+                table: "ActualPage",
+                column: "PageID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -276,6 +323,9 @@ namespace Headless.DB.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ActualPage");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

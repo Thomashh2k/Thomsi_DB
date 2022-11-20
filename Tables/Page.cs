@@ -14,13 +14,6 @@ namespace Headless.DB.Tables
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Route { get; set; }
-        public string Body { get; set; }
-
-
-
-        [ForeignKey("FK_Page_Lang")]
-        public Guid LangId { get; set; }
-        public Lang? Lang { get; set; }
 
     }
 }
